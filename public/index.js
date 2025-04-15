@@ -2,7 +2,7 @@ const html = window.nanohtml
 
 const offset = 0
 const limit = 10
-const tag = 'texture'
+const tag = 'mountain'
 listPrints({offset, limit, tag})
   .then(prints => render({prints, offset, limit, tag}))
 
@@ -11,11 +11,9 @@ function listPrints ({offset = 0, limit = 25, tag}) {
   const qs = `?offset=${offset}&limit=${limit}&tag=${tag || ''}`
   return fetchJSON(endpoint + qs)
 }
-
 function fetchJSON (url) {
   return fetch(url).then(res => res.json())
 }
-
 function render ({prints, offset, limit, tag}) {
   document.body.innerHTML = ''
   document.body.appendChild(html`
@@ -28,7 +26,6 @@ function render ({prints, offset, limit, tag}) {
     </article>
   `)
 }
-
 function renderButtons ({offset, limit, tag}) {
   return html`
     <div class="flex items-center justify-center pa4">
@@ -36,10 +33,8 @@ function renderButtons ({offset, limit, tag}) {
       ${renderNext({offset, limit, tag})}
     </div>
   `
-
   function renderPrev ({offset, limit, tag}) {
     if (!offset) return
-
     offset = offset - limit
     return html`
       <a
@@ -47,12 +42,10 @@ function renderButtons ({offset, limit, tag}) {
         class="f5 no-underline black bg-animate hover-bg-black hover-white inline-flex items-center pa3 ba border-box mr4"
         onclick=${() => listPrints({offset, limit, tag}).then(prints => render({prints, offset, limit, tag}))}
         >
-
         <span class="pl1">Previous</span>
       </a>
     `
   }
-
   function renderNext ({offset, limit, tag}) {
     offset = offset + limit
     return html`
@@ -65,7 +58,6 @@ function renderButtons ({offset, limit, tag}) {
     `
   }
 }
-
 function renderPrint (print) {
   console.log(print)
   return html`
